@@ -6,6 +6,10 @@ LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
 
+ifneq ($(filter caf bfam,$(TARGET_QCOM_AUDIO_VARIANT)),)
+	LOCAL_CFLAGS += -DSAMPLE_RATE_48K
+endif
+
 # HAL layer
 LOCAL_SRC_FILES:= \
 	../btif/src/bluetooth.c
@@ -111,7 +115,7 @@ LOCAL_C_INCLUDES+= . \
 	$(TOP)/frameworks/av/include/media \
 	external/tinyxml2
 
-LOCAL_CFLAGS += -DBUILDCFG $(bdroid_CFLAGS) -Werror -Wno-error=maybe-uninitialized -Wno-error=uninitialized
+LOCAL_CFLAGS += -DBUILDCFG $(bdroid_CFLAGS) -Werror -Wno-error=maybe-uninitialized -Wno-error=uninitialized -Wno-unused-parameter
 
 ifeq ($(TARGET_PRODUCT), full_crespo)
      LOCAL_CFLAGS += -DTARGET_CRESPO
